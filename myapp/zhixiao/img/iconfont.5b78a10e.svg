@@ -1,0 +1,29 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" >
+<!--
+2013-9-30: Created.
+-->
+<svg>
+<metadata>
+Created by iconfont
+</metadata>
+<defs>
+
+<font id="iconfont" horiz-adv-x="1024" >
+  <font-face
+    font-family="iconfont"
+    font-weight="500"
+    font-stretch="normal"
+    units-per-em="1024"
+    ascent="896"
+    descent="-128"
+  />
+    <missing-glyph />
+    
+    <glyph glyph-name="zhenhuichongtubiaozhizuo-kuozhan-" unicode="&#58912;" d="M781 27.6H95c-16.6 0-30-13.4-30-30s13.4-30 30-30h686c16.6 0 30 13.4 30 30s-13.4 30-30 30zM861 790H95c-16.6 0-30-13.4-30-30s13.4-30 30-30h766c16.6 0 30 13.4 30 30s-13.4 30-30 30zM95 348.8h513.9c16.6 0 30 13.4 30 30s-13.4 30-30 30H95c-16.6 0-30-13.4-30-30s13.4-30 30-30z"  horiz-adv-x="1024" />
+
+    
+
+
+  </font>
+</defs></svg>

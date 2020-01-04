@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>聚合</title>
+</head>
+
+<body>
+    <!-- Vue渲染的入口节点 -->
+    <div id="app">
+        <!-- <h1>Hello World</h1> -->
+    </div>
+
+    <script type="text/javascript">
+        //如下代码主要是解决, 打包后的app点击返回键直接退出的bug.
+        /* 自己写的 toast 提示框 */
+        //下面用的是调的 Android 自身的 toast方法。 我把我自己写的toast 注释掉 
+        /* 
+        let flag = false;
+        function toast(tip){
+            if(flag) return;
+            let oDiv  = document.createElement('div');
+            let oBody = document.getElementsByTagName('body')[0];
+            oDiv.innerText = tip;
+            oDiv.style.background = 'rgba(50, 50, 51, 0.88)';
+            oDiv.style.color = '#fff';
+            oDiv.style.textAlign = 'center';
+            oDiv.style.fontSize = '14px';
+            oDiv.style.lineHeight = '30px';
+            oDiv.style.width = '200px';
+            oDiv.style.borderRadius = '4px';
+            oDiv.style.position = 'fixed';
+            oDiv.style.left = '50%';
+            oDiv.style.transform = 'translateX(-50%)';
+            oDiv.style.bottom = '100px';
+            oDiv.style.zIndex = '1000';
+            oBody.appendChild(oDiv);
+            flag = true;
+            setTimeout(function(){
+                oBody.removeChild(oDiv);
+                flag = false;
+            },1000);
+        }
+         */
+        /* 自己写的 toast 提示框---END--- */
+
+        document.addEventListener('plusready', function (a) { //等待plus ready后再调用5+ API：
+            //// 在这里调用5+ API
+            var first = null;
+            plus.key.addEventListener('backbutton', function () { //监听返回键
+                //首次按键，提示‘再按一次退出应用’
+                if (!first) {
+                    first = new Date().getTime(); //获取第一次点击的时间戳
+                    // console.log('再按一次退出应用');//用自定义toast提示最好
+                    // toast('双击返回键退出应用'); //调用自己写的吐丝提示 函数
+                    plus.nativeUI.toast("双击退出", { duration: 'short' }); //通过H5+ API 调用Android 上的toast 提示框
+                    setTimeout(function () {
+                        first = null;
+                    }, 1000);
+                } else {
+                    if (new Date().getTime() - first < 1000) { //获取第二次点击的时间戳, 两次之差 小于 1000ms 说明1s点击了两次,
+                        plus.runtime.quit(); //退出应用
+                    }
+                }
+            }, false);
+        });
+    </script>
+    <script type="text/javascript" src="bundle.js"></script>
+</body>
+
+</html>
