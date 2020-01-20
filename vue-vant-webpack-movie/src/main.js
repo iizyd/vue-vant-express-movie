@@ -12,10 +12,13 @@ import {
     Tabbar,
     TabbarItem,
     Icon,
-    NoticeBar
+    NoticeBar,
+    List,
+    Tab,
+    Tabs
 } from 'vant';
 
-Vue.use(Search).use(Row).use(Col).use(Lazyload).use(NavBar).use(Toast).use(Tabbar).use(TabbarItem).use(Icon).use(NoticeBar);
+Vue.use(Search).use(Row).use(Col).use(Lazyload).use(NavBar).use(Toast).use(Tabbar).use(TabbarItem).use(Icon).use(NoticeBar).use(List).use(Tab).use(Tabs);
 
 new Vue({
     router,

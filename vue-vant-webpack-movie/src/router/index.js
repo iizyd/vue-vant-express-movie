@@ -9,6 +9,16 @@ import IndexList from '../views/IndexList.vue'
 import More from '../views/More.vue'
 import MoreDetail from '../views/MoreDetail.vue'
 
+
+import Morning from '../views/morning/Morning.vue'
+import MDetail from '../views/morning/MDetail.vue'
+import MSearch from '../views/morning/MSearch.vue'
+import MIndexList from '../views/morning/MIndexList.vue'
+import MMore from '../views/morning/MMore.vue'
+import MMoreDetail from '../views/morning/MMoreDetail.vue'
+
+
+
 Vue.use(VueRouter);
 
 const routes = [{
@@ -36,6 +46,28 @@ const routes = [{
         path: '/more_detail/:title/:url',
         name: 'MoreDetail',
         component: MoreDetail
+    },
+    {
+        path: '/morning',
+        component: Morning,
+        name: 'Morning',
+        meta: {
+            keepAlive: true
+        }
+    },
+    {
+        path: '/mdetail/:title/:href',
+        name: 'MDetail',
+        component: MDetail
+    },
+    {
+        path: '/mmore',
+        component: MMore
+    },
+    {
+        path: '/Mmore_detail/:title/:url',
+        name: 'MMoreDetail',
+        component: MMoreDetail
     }
 ]
 

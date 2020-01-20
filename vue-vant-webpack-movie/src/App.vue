@@ -8,6 +8,7 @@
 
         <van-tabbar v-model="active" v-show="isShowFootBar">
             <van-tabbar-item icon="video-o" replace to="/index">首页</van-tabbar-item>
+            <van-tabbar-item icon="video-o" replace to="/morning">晨光</van-tabbar-item>
             <van-tabbar-item icon="apps-o" replace to="/more">更多</van-tabbar-item>
         </van-tabbar>
     </div>

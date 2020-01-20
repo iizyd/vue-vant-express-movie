@@ -8,6 +8,11 @@
                 @search="search"
             />
         </div>
+
+        <!-- <van-tabs>
+            <van-tab v-for="index in 8" :title="'标签 ' + index" :key="index">内容 {{ index }}</van-tab>
+        </van-tabs>-->
+
         <div class="main-padding-box">
             <!-- 首页的数据 -->
             <van-row gutter="0" v-show="!isSearch">
@@ -18,7 +23,7 @@
                     :key="index"
                     @click="goDetail(item)"
                 >
-                    <img v-lazy="'http:'+ item.banner" />
+                    <img v-lazy="item.banner" />
                     <span>{{item.title}}</span>
                 </van-col>
             </van-row>
@@ -32,7 +37,7 @@
                     :key="index"
                     @click="goDetail(item)"
                 >
-                    <img v-lazy="'http:'+ item.banner" />
+                    <img v-lazy="item.banner" />
                     <span>{{item.title}}</span>
                 </van-col>
 

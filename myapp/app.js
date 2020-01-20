@@ -6,9 +6,12 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var zhixiaoRouter = require('./routes/zhixiao');
 var movieRouter = require('./routes/movie');
+// api接口
 var apiMovieRouter = require('./routes/api_movie');
-var apiMovie_88Router = require('./routes/api_movie_88');
+var apiMovieMorningRouter = require('./routes/api_movie_morning_light');
 var apiMovieWebSiteRouter = require('./routes/api_movie_website_list');
+var apiMovieHaiMiRouter = require('./routes/api_movie_haimi');
+var apiMovieSearchAllRouter = require('./routes/api_movie/search_all');
 
 var app = express();
 
@@ -18,6 +21,7 @@ app.use(express.urlencoded({
     extended: false
 }));
 app.use(cookieParser());
+// 静态资源
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/zhixiao', express.static(path.join(__dirname, 'zhixiao')));
 app.use('/movie', express.static(path.join(__dirname, 'movie')));
@@ -40,10 +44,16 @@ app.use('/', indexRouter);
 app.use('/zhixiao', zhixiaoRouter);
 // 电影app
 app.use('/movie', movieRouter);
+
 // 1090接口
 app.use('/api/movie', apiMovieRouter);
-// 88接口--未完成
-app.use('/api/movie_88', apiMovie_88Router);
+// 晨光影院
+app.use('/api/movie/morning', apiMovieMorningRouter);
+// haiduomi
+app.use('/api/movie/haimi', apiMovieHaiMiRouter);
+// 搜索所有
+app.use('/api/movie/all', apiMovieSearchAllRouter);
+
 // 电影网站列表接口
 app.use('/api/movie/web_list', apiMovieWebSiteRouter);
 

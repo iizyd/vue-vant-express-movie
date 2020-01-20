@@ -49,10 +49,17 @@ function getData(target_url) {
                 let $ = cheerio.load(res.text);
                 $('.stui-vodlist .stui-vodlist__thumb').each((index, element) => {
                     console.log($(element).attr('data-original'))
+                    // let item = {
+                    //     title: $(element).attr('title'), // 获取标题
+                    //     href: $(element).attr('href'), // 获取网页链接
+                    //     banner: $(element).attr('data-original') // 背景图
+                    // };
+
+                    let img_src = $(element).attr('data-original');
                     let item = {
                         title: $(element).attr('title'), // 获取标题
                         href: $(element).attr('href'), // 获取网页链接
-                        banner: $(element).attr('data-original') // 背景图
+                        banner: img_src.startsWith('htt') ? img_src : base_url + img_src // 背景图
                     };
                     result.push(item) // 存入最终结果数组
                 });
@@ -89,7 +96,7 @@ function getSearchResult(wd) {
     return new Promise((resolve, reject) => {
         let result = [];
         request.post({
-            url: 'https://1090ys.com/?c=search', // 请求的URL
+            url: 'http://1090ys.com/?c=search', // 请求的URL
             form: {
                 wd: wd
             }
@@ -101,13 +108,21 @@ function getSearchResult(wd) {
             if (!error && response.statusCode == 200) {
                 let $ = cheerio.load(body);
                 $('.stui-vodlist__media .activeclearfix .v-thumb').each((index, element) => {
+                    // let item = {
+                    //     title: $(element).attr('title'), // 获取标题
+                    //     href: $(element).attr('href'), // 获取网页链接
+                    //     banner: $(element).attr('data-original') // 背景图
+                    // };
+
+                    let img_src = $(element).attr('data-original');
                     let item = {
                         title: $(element).attr('title'), // 获取标题
                         href: $(element).attr('href'), // 获取网页链接
-                        banner: $(element).attr('data-original') // 背景图
+                        banner: img_src.startsWith('htt') ? img_src : base_url + img_src // 背景图
                     };
                     result.push(item) // 存入最终结果数组
                 });
+                console.log(result);
                 resolve(result);
             }
         });

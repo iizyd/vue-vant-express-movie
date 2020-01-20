@@ -102,6 +102,11 @@ let web_list = [{
         id: 19,
         title: '873',
         url: 'https://www.873g.com/'
+    },
+    {
+        id: 20,
+        title: '873',
+        url: 'http://m.86cg.com/variety/'
     }
 ]
 
