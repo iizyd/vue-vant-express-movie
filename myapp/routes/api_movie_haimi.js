@@ -27,12 +27,31 @@ function getSetData(target_url) {
                 console.log('getSetData请求错误' + err);
             } else {
                 let $ = cheerio.load(res.text);
-                $('.stui-content__playlist a').each((index, element) => {
-                    let item = {
-                        set_title: $(element).text(), // 获取标题
-                        set_href: $(element).attr('href') // 获取网页链接
-                    }
-                    set_result.push(item);
+                // $('.stui-content__playlist a').each((index, element) => {
+                //     let item = {
+                //         set_title: $(element).text(), // 获取标题
+                //         set_href: $(element).attr('href') // 获取网页链接
+                //     }
+                //     set_result.push(item);
+                // });
+                $('.playlist .stui-pannel_hd .title').each((index, element) => {
+                    let name = `云播${index}`;
+                    let source_obj = {
+                        set_source: name,
+                        sets: []
+                    };
+                    $('.stui-content__playlist').each((i, e) => {
+                        if (index == i) {
+                            $(e).find('a').each((ind, el) => {
+                                let item = {
+                                    set_title: $(el).text(), // 获取标题
+                                    set_href: $(el).attr('href') // 获取网页链接
+                                }
+                                source_obj.sets.push(item);
+                            })
+                        }
+                    });
+                    set_result.push(source_obj);
                 });
             }
             resolve(set_result);

@@ -183,6 +183,19 @@ router.get('/main', function (req, res, next) {
     }
 });
 
+router.get('/main/search', function (req, res, next) {
+    let id = req.query.id;
+    let type = req.query.type;
+    let wd = req.query.wd;
+    if (id == 1) {
+        res.redirect(`/api/movie/${type}?wd=${wd}`);
+    } else if (id == 2) {
+        res.redirect(`/api/movie/morning/${type}?wd=${wd}`);
+    } else {
+        res.redirect(`/api/movie/haimi/${type}?wd=${wd}`);
+    }
+});
+
 /* GET api movie page. */
 router.get('/', function (req, res, next) {
     res.send('success');

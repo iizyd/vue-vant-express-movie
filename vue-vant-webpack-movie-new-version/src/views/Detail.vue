@@ -23,6 +23,7 @@
                     allowtransparency="true"
                     allowfullscreen="true"
                     :src="iframe_src"
+                    @load="iframeLoad"
                 ></iframe>
             </div>
         </div>
@@ -41,7 +42,7 @@
         </div>
 
         <div class="set-list-box-big" v-if="bigList">
-            <div class="set-source-big" v-for="(source, i) in set_list" :key="i">
+            <!-- <div class="set-source-big" v-for="(source, i) in set_list" :key="i">
                 <van-divider>{{source.set_source}}</van-divider>
                 <div class="set-line-box-big">
                     <div
@@ -52,11 +53,26 @@
                         @click="play(item)"
                     >{{item.set_title}}</div>
                 </div>
-            </div>
+            </div>-->
+
+            <van-tabs>
+                <van-tab v-for="(source, i) in set_list" :key="i" :title="source.set_source">
+                    <div class="result-main-box">
+                        <div class="set-line-box-big">
+                            <div
+                                class="set-list-item-big"
+                                v-for="(item, index) in source.sets"
+                                :key="index"
+                                :class="{'set-list-item-active': item.isActive}"
+                                @click="play(item)"
+                            >{{item.set_title}}</div>
+                        </div>
+                    </div>
+                </van-tab>
+            </van-tabs>
         </div>
     </div>
 </template>
-
 <script>
 import { getAllData } from '../utils/api_methods'
 
@@ -68,33 +84,34 @@ export default {
             iframe_src: "",
             loadingTag: null,
             _id: '',
-            bigList: false
+            bigList: false,
+            second: 30,
+            timer: null
         }
     },
     created () {
-        this.loadingTag = this.$toast.loading({
-            message: '加载中...',
-            forbidClick: false,
-            duration: 0
-        });
+        this.loadingTip();
+
         let _href = this.$route.params.href.replace(/\+/g, '/').replace(/-/g, '.');
         this._id = this.$route.params.id;
         console.log(_href);
         console.log(this._id);
 
-        getAllData({ params: { id: this._id, type: 'get_set', url: _href } }).then(res => {
+        getAllData({ params: { id: this._id, type: 'get_set', url: _href }, timeout: this.second * 1000 }).then(res => {
             console.log(res.data);
             this.set_list = res.data;
             if (this.set_list[0]['sets']) {
                 this.bigList = true;
             }
-            this.loadingTag.clear();
+            this.loadingSuccess();
+        }).catch(err => {
+            this.loadingFail();
         });
 
-        this.set_list.forEach(item => {
-            this.$set(item, 'isActive', false)
-            // item.isActive = false;
-            this.set_list.push(item);
+        this.set_list = this.set_list.map(item => {
+            return item.sets.map(item1 => {
+                return this.$set(item1, 'isActive', false)
+            })
         });
     },
     methods: {
@@ -105,27 +122,60 @@ export default {
             this.$router.push('/index');
         },
         play (item) {
-            this.loadingTag = this.$toast.loading({
-                message: '加载中...',
-                forbidClick: false,
-                duration: 0
-            });
+            this.loadingTip();
             this.changeBgColor(item);
-            getAllData({ params: { id: this._id, type: 'get_play_url', url: item.set_href } }).then(res => {
+            getAllData({ params: { id: this._id, type: 'get_play_url', url: item.set_href }, timeout: this.second * 1000 }).then(res => {
                 console.log(res.data, '-----');
                 this.iframe_src = res.data[0].src;
-                this.loadingTag.clear();
+            }).catch(err => {
+                this.loadingFail();
             })
         },
         changeBgColor (item) {
-            this.set_list.map(i => {
-                i.isActive = false;
+            this.set_list.forEach(i => {
+                i.sets.forEach(it => {
+                    it.isActive = false;
+                })
             })
             item.isActive = true;
             console.log(item)
         },
         reload () {
             location.reload();
+        },
+        loadingTip () {
+            this.loadingTag = this.$toast.loading({
+                message: `倒计时${this.second}秒`,
+                forbidClick: true,
+                duration: 0
+            });
+            this.timer = setInterval(() => {
+                this.second--;
+                if (this.second) {
+                    this.loadingTag.message = `倒计时 ${this.second} 秒`;
+                } else {
+                    clearInterval(this.timer);
+                    // 手动清除 Toast
+                    this.loadingTag.clear();
+                    this.loadingFail();
+                }
+            }, 1000);
+        },
+        loadingSuccess () {
+            this.loadingTag.clear();
+            clearInterval(this.timer);
+            this.$toast.success('加载成功');
+            this.second = 30;
+        },
+        loadingFail () {
+            this.loadingTag.clear();
+            clearInterval(this.timer);
+            this.$toast.fail('可能网速慢，请重试');
+            this.second = 30;
+        },
+        iframeLoad () {
+            this.loadingSuccess();
+            console.log('iframe load')
         }
     }
 }
@@ -190,15 +240,16 @@ export default {
     .set-line-box-big {
         display: flex;
         overflow-x: scroll;
+        margin-top: 5px;
     }
 
     .set-list-item-big {
         flex-shrink: 0;
         white-space: nowrap;
-        flex-basis: 27vw;
+        flex-basis: 24vw;
         text-align: center;
-        height: 9vw;
-        line-height: 9vw;
+        height: 11vw;
+        line-height: 11vw;
         font-size: 13px;
         border: 1px solid #ccc;
         box-sizing: border-box;

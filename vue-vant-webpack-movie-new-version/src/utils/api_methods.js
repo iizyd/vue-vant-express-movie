@@ -12,6 +12,10 @@ export const getAllData = (config) => {
     return Get(`${base_url}/api/movie/all/main`, config)
 }
 
+export const getSearch = (config) => {
+    return Get(`${base_url}/api/movie/all/main/search`, config)
+}
+
 export const searchAll = (config) => {
     return Get(`${base_url}/api/movie/all/search_all`, config)
 }

@@ -1,6 +1,11 @@
 import Vue from 'vue';
 import App from './App.vue';
 import router from './router/index'
+
+//引入mui
+import mui from './assets/mui/js/mui'
+Vue.prototype.$mui = mui;
+
 // 引入vant组件
 import {
     Search,
@@ -17,10 +22,12 @@ import {
     Tab,
     Tabs,
     ActionSheet,
-    Divider
+    Divider,
+    RadioGroup,
+    Radio
 } from 'vant';
 
-Vue.use(Divider).use(Search).use(Row).use(Col).use(Lazyload).use(NavBar).use(Toast).use(Tabbar).use(TabbarItem).use(Icon).use(NoticeBar).use(List).use(Tab).use(Tabs).use(ActionSheet);
+Vue.use(RadioGroup).use(Radio).use(Divider).use(Search).use(Row).use(Col).use(Lazyload).use(NavBar).use(Toast).use(Tabbar).use(TabbarItem).use(Icon).use(NoticeBar).use(List).use(Tab).use(Tabs).use(ActionSheet);
 
 new Vue({
     router,

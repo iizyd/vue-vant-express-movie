@@ -25,12 +25,30 @@ function getSetData(target_url) {
             } else {
                 let $ = cheerio.load(res.text);
                 t = res.text;
-                $('.stui-content__playlist a').each((index, element) => {
-                    let item = {
-                        set_title: $(element).attr('title'), // 获取标题
-                        set_href: $(element).attr('href') // 获取网页链接
+                // $('.stui-content__playlist a').each((index, element) => {
+                //     let item = {
+                //         set_title: $(element).attr('title'), // 获取标题
+                //         set_href: $(element).attr('href') // 获取网页链接
+                //     };
+                //     set_result.push(item) // 存入最终结果数组
+                // });
+
+                $('.stui-pannel_hd .nav .dropdown-menu a').each((index, element) => {
+                    let a_href = $(element).attr('href');
+                    let source_obj = {
+                        set_source: $(element).text(),
+                        sets: []
                     };
-                    set_result.push(item) // 存入最终结果数组
+
+                    $(`${a_href} .stui-content__playlist a`).each((i, e) => {
+                        let item = {
+                            set_title: $(e).attr('title'), // 获取标题
+                            set_href: $(e).attr('href') // 获取网页链接
+                        };
+
+                        source_obj.sets.push(item) // 存入数组
+                    });
+                    set_result.push(source_obj);
                 });
             }
             resolve(set_result);

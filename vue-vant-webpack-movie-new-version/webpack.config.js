@@ -91,4 +91,7 @@ module.exports = {
     //         }
     //     }
     // }
+    externals: {
+        'mui': 'mui'
+    },
 }
