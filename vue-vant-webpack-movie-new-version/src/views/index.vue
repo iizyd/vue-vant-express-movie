@@ -29,6 +29,8 @@
             </van-radio-group>
         </div>
 
+        <div class="more" @click="goMore">其他作品</div>
+
         <van-action-sheet v-model="showBottom" :title="keyWords + `--搜索结果`">
             <div class="result-box">
                 <van-tabs v-show="radio == 'all' ? true : false">
@@ -200,6 +202,9 @@ export default {
             clearInterval(this.timer);
             this.$toast.fail('可能网速慢，请重试');
             this.second = 30;
+        },
+        goMore () {
+            location.href = 'http://39.107.243.50:3003/movie/#/index';
         }
     },
     watch: {
@@ -332,6 +337,17 @@ export default {
             line-height: 8vw;
             color: rgb(110, 110, 110);
         }
+    }
+
+    .more {
+        width: 50%;
+        margin: 0 auto;
+        margin-top: 20px;
+        text-align: center;
+        font-size: 13px;
+        color: #3f3f3f;
+        height: 20px;
+        background-color: rgb(207, 207, 207);
     }
 }
 </style>
