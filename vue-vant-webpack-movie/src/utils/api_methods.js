@@ -5,7 +5,7 @@ import {
 // export const getIndexData = (config) => {
 //     return Get('/api/index', config)
 // };
-let base_url = 'http://39.107.243.50:3002';
+let base_url = 'http://localhost:3002';
 let temp = '/movie';
 
 export const getIndexData = (config) => {
@@ -25,7 +25,7 @@ export const getSiteList = (config) => {
 };
 
 // ---------------------
-let Mbase_url = 'http://39.107.243.50:3002';
+let Mbase_url = 'http://localhost:3002';
 let Mtemp = '/movie/morning';
 
 
