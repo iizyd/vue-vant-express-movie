@@ -2,7 +2,7 @@ import {
     Get
 } from "./api";
 
-let base_url = 'http://39.107.243.50:3002';
+let base_url = 'http://localhost:3002';
 // let temp = '/movie';
 // let Mtemp = '/movie/morning';
 // let Htemp = '/movie/haimi';
@@ -37,7 +37,7 @@ export const searchAll = (config) => {
 // };
 
 // // ---------------------
-// let Mbase_url = 'http://39.107.243.50:3002';
+// let Mbase_url = 'http://localhost:3002';
 // let Mtemp = '/movie/morning';
 
 
