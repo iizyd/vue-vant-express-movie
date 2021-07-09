@@ -4,7 +4,6 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
-var zhixiaoRouter = require('./routes/zhixiao');
 var movieRouter = require('./routes/movie');
 // api接口
 var apiMovieRouter = require('./routes/api_movie');
@@ -23,7 +22,6 @@ app.use(express.urlencoded({
 app.use(cookieParser());
 // 静态资源
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/zhixiao', express.static(path.join(__dirname, 'zhixiao')));
 app.use('/movie', express.static(path.join(__dirname, 'movie')));
 
 
@@ -40,8 +38,6 @@ app.all('*', function (req, res, next) {
 
 // 首页
 app.use('/', indexRouter);
-// 知晓
-app.use('/zhixiao', zhixiaoRouter);
 // 电影app
 app.use('/movie', movieRouter);
 
